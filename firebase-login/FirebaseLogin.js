@@ -14,9 +14,26 @@ const FirebaseLogin = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         Alert.alert('Inicio de sesión exitoso', '¡Bienvenido!');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
       })
       .catch(error => {
-        Alert.alert('Error al iniciar sesion', error.message);
+        switch (error.code) {
+          case 'auth/invalid-email':
+            Alert.alert('Error', 'El correo electrónico es inválido.');
+            break;
+          case 'auth/user-not-found':
+            Alert.alert('Error', 'No se encontró una cuenta con este correo.');
+            break;
+          case 'auth/wrong-password':
+            Alert.alert('Error', 'La contraseña es incorrecta.');
+            break;
+          default:
+            Alert.alert('Error', 'Ocurrió un error inesperado. Intenta de nuevo.');
+            break;
+        }
       });
   };
 
