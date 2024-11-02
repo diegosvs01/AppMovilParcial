@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import FirebaseLogin from './firebase-login/FirebaseLogin';
+import FirebaseCrearCuenta from './firebase-login/FirebaseCrearCuenta';
+import FirebaseRecuperarCuenta from './firebase-login/FirebaseRecuperarCuenta';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={FirebaseLogin} options={{ title: 'Inicio de Sesión' }} />
+        <Stack.Screen name="CrearCuenta" component={FirebaseCrearCuenta} options={{ title: 'Crear Cuenta' }} />
+        <Stack.Screen name="RecuperarCuenta" component={FirebaseRecuperarCuenta} options={{ title: 'Recuperar Contraseña' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
